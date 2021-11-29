@@ -1,19 +1,19 @@
 $('form').on('submit', (event) => {
     event.preventDefault();
-    $("#resultado").html(" ");
+    $("#encontrado").html(" ");
     $("#chartContainer").html(" ");
-    hero = parseInt($('#hero').val());
-    consulta(hero);
+    superhero = parseInt($('#superhero').val());
+    consulta(superhero);
 });
 
-let consulta = (hero) => {
+let consulta = (superhero) => {
     $.ajax({
         dataType: "json",
         type: "get",
-        url: `https://superheroapi.com/api.php/10228052014908009/${hero}`,
+        url: `https://superheroapi.com/api.php/10228052014908009/${superhero}`,
         success: (result) => {
             if (result.response === 'success') {
-                let resultado1 = `
+                let encontrado1 = `
                         <h3 class="test-center">SuperHero Encontrado</h3>
                         <div class="card">
                             <div class="row no-gutters">
@@ -32,9 +32,9 @@ let consulta = (hero) => {
                                             <li class="list-group-item"><em>Peso:</em> ${result.appearance.weight.join(" - ")}.</li>
                                             <li class="list-group-item"><em>Alianzas:</em>
                 `;
-                let resultado2 = "";
-                resultado2 = result.biography.aliases.join(', ');
-                let resultado3 = `
+                let encontrado2 = "";
+                encontrado2 = result.biography.aliases.join(', ');
+                let encontrado3 = `
                                         </li>
                                     </ul>
                                 </div>
@@ -42,7 +42,7 @@ let consulta = (hero) => {
                         </div>
                     </div>
                 `;
-                $('#resultado').append(resultado1 + resultado2 + resultado3);
+                $('#encontrado').append(encontrado1 + encontrado2 + encontrado3);
                 let datosXY = [];
                 for (const key in result.powerstats) {
                     datosXY.push({
